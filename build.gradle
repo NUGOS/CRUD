@@ -1,12 +1,22 @@
 plugins {
     id 'java'
+    id "org.flywaydb.flyway" version "9.8.1"
 }
 
-group 'org.example'
+group 'ua.goit'
 version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+}
+
+def properties = new Properties()
+properties.load(new FileInputStream(file('src/main/resources/application.properties')))
+
+flyway {
+    url = properties['url']
+    user = properties['user']
+    password = properties['password']
 }
 dependencies {
     // https://mvnrepository.com/artifact/org.postgresql/postgresql
